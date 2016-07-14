@@ -1,12 +1,24 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'ALLocalizables_Example', :exclusive => true do
+target 'ALLocalizables_Example'
   pod "ALLocalizables", :path => "../"
 end
 
-target 'ALLocalizables_Tests', :exclusive => true do
+target 'ALLocalizables_Tests'
   pod "ALLocalizables", :path => "../"
+end
 
-  
+post_install do |installer|
+    
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '2.3'
+        end
+    end
+    
+    system("curl -fsSL https://git.triple-it.nl/snippets/15/raw --output pods-post-processing.rb")
+    require_relative "pods-post-processing.rb";
+    post_process(installer)
+    system("rm pods-post-processing.rb")
 end
