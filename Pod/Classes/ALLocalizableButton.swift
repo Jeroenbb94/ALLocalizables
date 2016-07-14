@@ -18,18 +18,18 @@ import UIKit
                 self.setTitle(bundle.localizedStringForKey(self.localizeString, value:"", table: nil), forState: UIControlState.Normal)
                 #else
                 
-                self.setTitle(NSLocalizedString(self.localizeString, comment:""), forState: UIControlState.Normal)
+                self.setTitle(NSLocalizedString(self.localizeString, comment:""), for: [])
             #endif
         }
     }
     
-    override public func setTitle(title: String?, forState state: UIControlState) {
+    override public func setTitle(_ title: String?, for state: UIControlState) {
         
         #if TARGET_INTERFACE_BUILDER
             let bundle = NSBundle(forClass: self.dynamicType)
             super.setTitle(bundle.localizedStringForKey(self.localizeString, value:"", table: nil), forState: UIControlState.Normal)
             #else
-            super.setTitle(title, forState: state)
+            super.setTitle(title, for: state)
         #endif
     }
     
